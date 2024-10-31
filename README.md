@@ -1,5 +1,7 @@
 # Application Overview 
 
+**Important**: I only used to files `main.jsx` and `App.jsx` to keep the application simple and easy to understand. However it's possible to decouple the code and have a more robust project code structure. Based on the question, I understood that what was needed is an app without much complexity. 
+
 This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is leveraging key technologies and configurations to enhance its development effeciency and long-term maintenance. 
 
 ## Key Technologies and Configurations
