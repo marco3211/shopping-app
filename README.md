@@ -30,7 +30,7 @@ Make sure to have `node` installed.
 Clone the Repository: 
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/marco3211/shopping-app.git
 ```
 
 Navigate to the directory: 
