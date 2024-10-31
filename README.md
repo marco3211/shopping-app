@@ -12,6 +12,13 @@ This React application is built using Vite, a tool which provides fast developme
 - PostCSS: A tool that helps transforming CSS with JavaScript plugins. 
 - ESLint: Helps enforcing standards and best practices. 
 
+## Design and Implementation Decisions
+
+- Component-Based Architecture: The application promotes reusability of components and separations of concerns. Each component has a specific functionality, making the code easier to understand and maintain. 
+- State Management: Redux Toolkit was chosen for its simplicity in managing global state.
+- Performance Optimization: Vite's fast build process and HMR capabilities reduces significantly developement time and improves developer experience. 
+- User Experience: The application provides simple UI for managing shopping lists. Features like real-time validation and error handling enhances the user experience by providing immediate guidance and feedback. 
+
 ## Application Structure
 
 The application is structured into several components and pages: 
