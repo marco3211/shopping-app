@@ -1,6 +1,6 @@
 # Application Overview 
 
-This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is leveraging key technologies and configurations to enhance its development effeciency and long-term maintainance. 
+This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is leveraging key technologies and configurations to enhance its development effeciency and long-term maintenance. 
 
 ## Key Technologies and Configurations
 
@@ -16,7 +16,7 @@ This React application is built using Vite, a tool which provides fast developme
 
 - Component-Based Architecture: The application promotes reusability of components and separations of concerns. Each component has a specific functionality, making the code easier to understand and maintain. 
 - State Management: Redux Toolkit was chosen for its simplicity in managing global state.
-- Performance Optimization: Vite's fast build process and HMR capabilities reduces significantly developement time and improves developer experience. 
+- Performance Optimization: Vite's fast build process and HMR capabilities significantly reduces developement time and improves developer experience. 
 - User Experience: The application provides simple UI for managing shopping lists. Features like real-time validation and error handling enhances the user experience by providing immediate guidance and feedback. 
 
 ## Application Structure
