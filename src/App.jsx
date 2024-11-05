@@ -2,9 +2,24 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter as Router, Link, Routes, Route, useNavigate } from 'react-router-dom'
 
-// Initial state for the Redux store
+import { addListToDB, getListsFromDB, deleteListFromDB } from './indexedDB'
+
 const initialState = {
   lists: []
+}
+
+export const loadLists = () => async (dispatch) => {
+  try {
+    const lists = await getListsFromDB()
+    console.log(lists)
+    if (lists) {
+      lists.forEach(list => {
+        dispatch({ type: 'ADD_LIST', payload: list })
+      })
+    }
+  } catch (error) {
+    console.error('Failed to load lists from IndexedDB:', error)
+  }
 }
 
 // Root reducer to handle actions related to lists
@@ -38,7 +53,7 @@ const Header = () => {
           <li><Link to="/lists">Lists</Link></li>
           <li><Link to="/create-account">Create Account</Link></li>
         </ul>
-      </nav>    
+      </nav>
     </header>
   )
 }
@@ -48,7 +63,7 @@ const CreateListCard = () => {
   return (
     <Link to="/create-list" className="mx-4 ml-0">
       <div className="border-dotted border-2 border-indigo-600 h-40 w-60 flex justify-center items-center">
-        <p>Create List</p>    
+        <p>Create List</p>
       </div>
     </Link>
   )
@@ -60,31 +75,33 @@ const ListCard = () => {
   const dispatch = useDispatch()
 
   // Function to handle list deletion
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
+    const listName = lists[index].name
     dispatch({ type: 'DELETE_LIST', payload: index })
+    await deleteListFromDB(listName) // Delete from IndexedDB
   }
 
   return (
     <>
       {lists.map((list, index) => (
-      <div 
-        key={index} 
-        className={`relative border-solid border-2 border-indigo-600 h-40 w-60 flex flex-col justify-center items-center mx-4 ${index === 0 ? 'ml-0' : ''}`}
-      >
-        <button
-          onClick={() => handleDelete(index)}
-          className="absolute top-0 right-0 mt-2 mr-2 text-red-500"
+        <div
+          key={index}
+          className={`relative border-solid border-2 border-indigo-600 h-40 w-60 flex flex-col justify-center items-center mx-2 ${index === 0 ? 'ml-0' : ''}`}
         >
-          X
-        </button>
-        <h3 className="text-lg font-bold">{list.name}</h3>
-        <ul className="text-center">
-          {list.items.map((item, itemIndex) => (
-            <li key={itemIndex}>{item}</li>
-          ))}
-        </ul>
-      </div>
-    ))}
+          <button
+            onClick={() => handleDelete(index)}
+            className="absolute top-0 right-0 mt-2 mr-2 text-red-500"
+          >
+            X
+          </button>
+          <h3 className="text-lg font-bold">{list.name}</h3>
+          <ul className="text-center">
+            {list.items.map((item, itemIndex) => (
+              <li key={itemIndex}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </>
   )
 }
@@ -113,33 +130,44 @@ const CreateListPage = () => {
   const handleAddItem = () => {
     if (item.trim()) {
       setItems([...items, item])
-      setItem('') 
+      setItem('')
       setError('')
     }
   }
 
   // Function to handle form submission
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // Check if the list name is empty
+    if (!listName.trim()) {
+      setError('Please enter a list name.')
+      return
+    }
+
+    // Check if there are no items in the list
     if (items.length === 0) {
       setError('Add items to your cart first.')
       return
     }
 
-    if (listName.trim() && items.length > 0) {
-      // Check if list name already exists
-      const listExists = lists.some(list => list.name === listName.trim())
-      if (listExists) {
-        setError('List name already exists. Please choose a different name.')
-        return
-      }
-      // Dispatch action to add list
-      dispatch({ type: 'ADD_LIST', payload: { name: listName, items } })
-      setListName('') 
-      setItems([]) 
-      setError('')
-      navigate('/')
+    // Check if the list name already exists
+    const listExists = lists.some(list => list.name === listName.trim())
+    if (listExists) {
+      setError('List name already exists. Please choose a different name.')
+      return
     }
+
+    // Create a new list and dispatch the action
+    const newList = { name: listName, items }
+    dispatch({ type: 'ADD_LIST', payload: newList })
+    await addListToDB(newList) // Save to IndexedDB
+
+    // Reset form fields and error state
+    setListName('')
+    setItems([])
+    setError('')
+    navigate('/')
   }
 
   // Function to cancel list creation and navigate back
@@ -147,7 +175,7 @@ const CreateListPage = () => {
 
   return (
     <div className="flex-1 w-1/3 mx-auto justify-middle">
-      <div className="flex flex-col space-y-10">
+      <div className="flex flex-col space-y-4">
         <h1 className="text-center">Create List</h1>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form className="flex flex-col border-2 border-gray-300 rounded-lg p-4 space-y-2" onSubmit={handleSubmit}>
@@ -157,7 +185,7 @@ const CreateListPage = () => {
             value={listName}
             onChange={(e) => {
               setListName(e.target.value)
-              setError('')
+              setError('') // Reset error when user starts typing
             }}
             placeholder="Enter list name"
           />
@@ -174,26 +202,25 @@ const CreateListPage = () => {
             ))}
           </ul>
           <div className="flex flex-row justify-between">
-            <button 
+            <button
               disabled={!item.trim()}
               onClick={handleAddItem}
-              type="button" 
-              className="px-3 py-2 w-1/3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+              type="button"
+              className="px-3 py-2 w-1/3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Add Item
             </button>
             <button
-              disabled={!listName.trim() && !item.trim()} 
-              type="submit" 
+              type="submit"
               className="px-3 py-2 w-1/3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Create List
             </button>
           </div>
         </form>
-        <button 
+        <button
           onClick={handleCancelItem}
-          type="button" 
+          type="button"
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
           Cancel
@@ -209,7 +236,13 @@ const ListsPage = () => {
 
   return (
     <>
-      {lists.length !== 0 ? <ListCard /> : <h1 className="text-center text-3xl font-bold">Oops you have no lists!</h1>}
+      {lists.length !== 0 ? (
+        <div className="flex justify-left">
+          <ListCard />
+        </div>
+      ) : (
+        <h1 className="text-center text-3xl font-bold">Oops you have no lists!</h1>
+      )}
     </>
   )
 }
@@ -222,7 +255,7 @@ const App = () => {
   return (
     <Router>
       <div className="container mx-auto max-w-7xl space-y-14">
-        <Header/>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/lists" element={<ListsPage />} />
