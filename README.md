@@ -4,20 +4,22 @@ This React application is built using Vite, a tool which provides fast developme
 
 ## Key Technologies and Configurations
 
-- Vite: A build tool with HMR which allows developers to see changes in real-time without the need to refresh the entire page.
-- React: The core library allowing us to build UI Components.
-- Redux Toolkit: Utilized for state management. Simplifies the setup and management of global state in the application. 
-- React Router: Enables client-side routing. Provides a similar experience to a single-page application (SPA).
-- TailwindCSS: A utility-first CSS framework, configured with PostCSS to enable custom configurations and optimizations.
-- PostCSS: A tool that helps transforming CSS with JavaScript plugins. 
-- ESLint: Helps enforcing standards and best practices. 
+- **Vite**: A build tool with HMR which allows developers to see changes in real-time without the need to refresh the entire page.
+- **React**: The core library allowing us to build UI Components.
+- **Redux Toolkit**: Utilized for state management. Simplifies the setup and management of global state in the application.
+- **React Router**: Enables client-side routing. Provides a similar experience to a single-page application (SPA).
+- **TailwindCSS**: A utility-first CSS framework, configured with PostCSS to enable custom configurations and optimizations.
+- **Flowbite**: A component library built on top of TailwindCSS, providing pre-designed UI components.
+- **PostCSS**: A tool that helps transform CSS with JavaScript plugins.
+- **ESLint**: Helps enforce standards and best practices.
 
 ## Design and Implementation Decisions
 
-- Component-Based Architecture: The application promotes reusability of components and separations of concerns. Each component has a specific functionality, making the code easier to understand and maintain. 
-- State Management: Redux Toolkit was chosen for its simplicity in managing global state.
-- Performance Optimization: Vite's fast build process and HMR capabilities significantly reduces developement time and improves developer experience. 
-- User Experience: The application provides simple UI for managing shopping lists. Features like real-time validation and error handling enhances the user experience by providing immediate guidance and feedback. 
+- **Component-Based Architecture**: The application promotes reusability of components and separation of concerns. Each component has a specific functionality, making the code easier to understand and maintain.
+- **State Management**: Redux Toolkit was chosen for its simplicity in managing global state.
+- **Performance Optimization**: Vite's fast build process and HMR capabilities significantly reduce development time and improve developer experience.
+- **User Experience**: The application provides a simple UI for managing shopping lists. Features like real-time validation and error handling enhance the user experience by providing immediate guidance and feedback.
+- **UI Components**: Flowbite is used to provide pre-designed UI components, enhancing the design and functionality of the application.
 
 ## Application Structure
 

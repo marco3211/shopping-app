@@ -8,8 +8,10 @@ const ListsPage = () => {
   return (
     <>
       {lists.length !== 0 ? (
-        <div className="flex justify-left">
-          <ListCard />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {lists.map((list, index) => (
+            <ListCard key={index} list={list} />
+          ))}
         </div>
       ) : (
         <h1 className="text-center text-3xl font-bold">Oops you have no lists!</h1>
