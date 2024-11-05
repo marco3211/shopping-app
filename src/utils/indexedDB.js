@@ -1,4 +1,3 @@
-// Open or create a database
 export const openDB = (dbName, version = 1) => {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open(dbName, version)
@@ -20,7 +19,6 @@ export const openDB = (dbName, version = 1) => {
     })
 }
 
-// Add a list to the database
 export const addListToDB = async (list) => {
     const db = await openDB('shoppingAppDB')
     const transaction = db.transaction('lists', 'readwrite')
@@ -29,7 +27,6 @@ export const addListToDB = async (list) => {
     return transaction.complete
 }
 
-// Get all lists from the database
 export const getListsFromDB = async () => {
     const db = await openDB('shoppingAppDB')
     return new Promise((resolve, reject) => {
@@ -38,16 +35,15 @@ export const getListsFromDB = async () => {
         const request = store.getAll()
 
         request.onsuccess = (event) => {
-            resolve(event.target.result) 
+            resolve(event.target.result)
         }
 
         request.onerror = (event) => {
-            reject(event.target.error) 
+            reject(event.target.error)
         }
     })
 }
 
-// Delete a list from the database
 export const deleteListFromDB = async (listName) => {
     const db = await openDB('shoppingAppDB')
     const transaction = db.transaction('lists', 'readwrite')
