@@ -27,7 +27,6 @@ The application is structured into several components, pages, and state manageme
   - `CreateListCard.jsx`: Component for creating a new list.
   - `Header.jsx`: Component for the application header.
   - `ListCard.jsx`: Component for displaying individual list items.
-  - // Add descriptions for other components as needed.
 
 - **Pages**: Main views or screens of the application, often representing a route. These are located in the `src/pages` directory.
   - `CreateAccountPage.jsx`: Page for creating a new account.
