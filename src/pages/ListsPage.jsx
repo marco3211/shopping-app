@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import ListCard from './ListCard'
+import ListCard from '../components/ListCard'
 
 const ListsPage = () => {
   const lists = useSelector(state => state.lists)

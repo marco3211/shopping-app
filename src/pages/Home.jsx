@@ -1,6 +1,6 @@
 import React from 'react'
-import CreateListCard from './CreateListCard'
-import ListCard from './ListCard'
+import CreateListCard from '../components/CreateListCard'
+import ListCard from '../components/ListCard'
 
 const Home = () => {
   return (
