@@ -1,7 +1,5 @@
 # Application Overview 
 
-**Important**: I only used two files `main.jsx` and `App.jsx` to keep the application simple and easy to understand. However it's possible to decouple the code and have a more robust project code structure. Based on the question, I understood that what was needed is an app without much complexity. 
-
 This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is leveraging key technologies and configurations to enhance its development effeciency and long-term maintenance. 
 
 ## Key Technologies and Configurations
@@ -23,12 +21,26 @@ This React application is built using Vite, a tool which provides fast developme
 
 ## Application Structure
 
-The application is structured into several components and pages: 
+The application is structured into several components, pages, and state management:
 
-- Main Entry Point `main.jsx`: Configures the Redux store and renders the main `App` component into the DOM. 
-- Main Application Component `App.jsx`: Contains the core logic and components of the application which would include routing, state management and UI components. 
+- **Components**: Reusable UI elements that can be used across different pages. These are located in the `src/components` directory.
+  - `CreateListCard.jsx`: Component for creating a new list.
+  - `Header.jsx`: Component for the application header.
+  - `ListCard.jsx`: Component for displaying individual list items.
+  - // Add descriptions for other components as needed.
 
-This overview provides a high-level understanding of the application. 
+- **Pages**: Main views or screens of the application, often representing a route. These are located in the `src/pages` directory.
+  - `CreateAccountPage.jsx`: Page for creating a new account.
+  - `CreateListPage.jsx`: Page for creating a new list.
+  - `Home.jsx`: Home page of the application.
+  - `ListsPage.jsx`: Page for displaying all lists.
+
+- **Redux**: State management for the application. The Redux-related files are located in the `src/redux` directory.
+  - `store.js`: Configures the Redux store.
+  - `slices/`: Contains Redux slices for different parts of the state.
+
+- **Utilities**: Helper functions and utilities used across the application. These are located in the `src/utils` directory.
+  - `indexedDB.js`: Utility for handling IndexedDB operations.
 
 ## How to Run the Application
 
