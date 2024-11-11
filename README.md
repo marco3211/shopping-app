@@ -92,3 +92,24 @@ To check the code for any linting errors with ESLint, run:
 ```bash
 npm run lint
 ```
+
+## Swap Setup Script
+
+The `setup_swap.sh` script is a utility to create and manage a swap file on your system. This can be useful for improving performance on systems with limited RAM.
+
+### Features
+
+- Checks if a swap file is already enabled and removes it before creating a new one.
+- Sets appropriate permissions and configures the swap file.
+- Makes the swap file permanent by adding it to `/etc/fstab`.
+- Adjusts system settings for swappiness and cache pressure to optimize performance.
+
+Ensure you have the necessary permissions to run the script, as it requires `sudo` access for certain operations.
+
+### Usage
+
+To use the script, run the following command:
+
+```bash
+./setup_swap.sh -s <swap_size>
+```

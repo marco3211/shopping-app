@@ -1,14 +1,40 @@
 #!/bin/bash
 
-# This script sets up a swap file on a Linux system
+# Function to display help message
+helpFunction()
+{
+   echo ""
+   echo "Usage: $0 -s swap_size"
+   echo -e "\t-s Size of the swap file (e.g., 1G, 2G)"
+   exit 1 # Exit script after printing help
+}
 
-# Define the size of the swap file 
-SWAP_SIZE=1G
+# Initialize variables
+SWAP_SIZE=""
+
+# Parse command-line options
+while getopts "s:" opt
+do
+   case "$opt" in
+      s ) SWAP_SIZE="$OPTARG" ;;
+      ? ) helpFunction ;; # Print helpFunction in case of invalid option
+   esac
+done
+
+# Check if SWAP_SIZE is set
+if [ -z "$SWAP_SIZE" ]
+then
+   echo "Swap size not specified"
+   helpFunction
+fi
 
 # Check if swap is already enabled
 if sudo swapon --show | grep -q '/swapfile'; then
-  echo "Swap is already enabled."
-  exit 0
+  echo "Swap is already enabled. Removing existing swap file..."
+  # Disable the swap file
+  sudo swapoff /swapfile
+  # Remove the swap file
+  sudo rm /swapfile
 fi
 
 # Create a swap file
@@ -33,6 +59,9 @@ sudo swapon --show
 
 # Make the swap file permanent
 echo "Making the swap file permanent..."
+# Remove any existing swapfile entry from /etc/fstab
+sudo sed -i '/\/swapfile/d' /etc/fstab
+# Add the new swapfile entry
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 # Adjust swappiness
