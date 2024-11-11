@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --max-old-space-size=512 node_modules/vite/bin/vite.js",
+    "dev": "node --max-old-space-size=2048 node_modules/vite/bin/vite.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^17.0.0",
     "@reduxjs/toolkit": "^2.3.0",
     "flowbite-react": "^0.10.2",
     "react": "^18.3.1",

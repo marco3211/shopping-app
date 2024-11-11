@@ -1,12 +1,12 @@
 # Application Overview 
 
-This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is leveraging key technologies and configurations to enhance its development effeciency and long-term maintenance. 
+This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is designed to manage shopping lists with features like drag-and-drop reordering and persistent state management using Redux.
 
 ## Key Technologies and Configurations
 
 - **Vite**: A build tool with HMR which allows developers to see changes in real-time without the need to refresh the entire page.
 - **React**: The core library allowing us to build UI Components.
-- **Redux Toolkit**: Utilized for state management. Simplifies the setup and management of global state in the application.
+- **Redux Toolkit**: Utilized for state management. Simplifies the setup and management of global state in the application, ensuring consistent state across different pages.
 - **React Router**: Enables client-side routing. Provides a similar experience to a single-page application (SPA).
 - **TailwindCSS**: A utility-first CSS framework, configured with PostCSS to enable custom configurations and optimizations.
 - **Flowbite**: A component library built on top of TailwindCSS, providing pre-designed UI components.
@@ -16,9 +16,9 @@ This React application is built using Vite, a tool which provides fast developme
 ## Design and Implementation Decisions
 
 - **Component-Based Architecture**: The application promotes reusability of components and separation of concerns. Each component has a specific functionality, making the code easier to understand and maintain.
-- **State Management**: Redux Toolkit was chosen for its simplicity in managing global state.
+- **State Management**: Redux Toolkit was chosen for its simplicity in managing global state. The application ensures that the state is consistent across different pages, especially after reordering lists.
 - **Performance Optimization**: Vite's fast build process and HMR capabilities significantly reduce development time and improve developer experience.
-- **User Experience**: The application provides a simple UI for managing shopping lists. Features like real-time validation and error handling enhance the user experience by providing immediate guidance and feedback.
+- **User Experience**: The application provides a simple UI for managing shopping lists. Features like drag-and-drop reordering, real-time validation, and error handling enhance the user experience by providing immediate guidance and feedback.
 - **UI Components**: Flowbite is used to provide pre-designed UI components, enhancing the design and functionality of the application.
 
 ## Application Structure
@@ -33,15 +33,15 @@ The application is structured into several components, pages, and state manageme
 - **Pages**: Main views or screens of the application, often representing a route. These are located in the `src/pages` directory.
   - `CreateAccountPage.jsx`: Page for creating a new account.
   - `CreateListPage.jsx`: Page for creating a new list.
-  - `Home.jsx`: Home page of the application.
-  - `ListsPage.jsx`: Page for displaying all lists.
+  - `Home.jsx`: Home page of the application, featuring drag-and-drop reordering of lists.
+  - `ListsPage.jsx`: Page for displaying all lists, reflecting the current state from Redux.
 
 - **Redux**: State management for the application. The Redux-related files are located in the `src/redux` directory.
   - `store.js`: Configures the Redux store.
   - `slices/`: Contains Redux slices for different parts of the state.
 
 - **Utilities**: Helper functions and utilities used across the application. These are located in the `src/utils` directory.
-  - `indexedDB.js`: Utility for handling IndexedDB operations.
+  - `indexedDB.js`: Utility for handling IndexedDB operations, ensuring persistent storage of lists.
 
 ## How to Run the Application
 

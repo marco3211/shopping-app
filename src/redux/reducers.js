@@ -1,4 +1,4 @@
-import { SET_LISTS, ADD_LIST, DELETE_LIST } from './actions'
+import { SET_LISTS, ADD_LIST, REORDER_LISTS, DELETE_LIST } from './actions'
 
 const initialState = {
   lists: [],
@@ -15,6 +15,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         lists: [...state.lists, action.payload],
+      }
+    case REORDER_LISTS:
+      return {
+        ...state,
+        lists: action.payload,
       }
     case DELETE_LIST:
       return {

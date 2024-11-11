@@ -1,6 +1,7 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import ListCard from '../components/ListCard'
+import { getListsFromDB } from '../utils/indexedDB'
 
 const ListsPage = () => {
   const lists = useSelector(state => state.lists)

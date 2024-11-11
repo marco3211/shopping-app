@@ -44,6 +44,20 @@ export const getListsFromDB = async () => {
     })
 }
 
+export const updateListsInDB = async (lists) => {
+    const db = await openDB('shoppingAppDB')
+    const transaction = db.transaction('lists', 'readwrite')
+    const store = transaction.objectStore('lists')
+
+    store.clear()
+
+    lists.forEach(list => {
+        store.put(list)
+    })
+
+    return transaction.complete
+}
+
 export const deleteListFromDB = async (listName) => {
     const db = await openDB('shoppingAppDB')
     const transaction = db.transaction('lists', 'readwrite')
