@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env
+*.csv
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +24,17 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+*.tfplan
+
+# Ansible
+.vault_pass.txt
+*.retry
+*.log
+*.cfg
+*.pem
