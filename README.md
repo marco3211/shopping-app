@@ -2,6 +2,8 @@
 
 This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is designed to manage shopping lists with features like drag-and-drop reordering and persistent state management using Redux.
 
+The application's infrastructure is managed using Terraform and Ansible, allowing for automated provisioning and configuration of AWS resources. This setup ensures a scalable and reliable environment for deploying and running the application.
+
 ## Key Technologies and Configurations
 
 - **Vite**: A build tool with HMR which allows developers to see changes in real-time without the need to refresh the entire page.
@@ -42,6 +44,24 @@ The application is structured into several components, pages, and state manageme
 
 - **Utilities**: Helper functions and utilities used across the application. These are located in the `src/utils` directory.
   - `indexedDB.js`: Utility for handling IndexedDB operations, ensuring persistent storage of lists.
+
+## Infrastructure Setup
+
+The infrastructure for this application is managed using Terraform and Ansible, with setup scripts provided for local environment preparation.
+
+### Setup Scripts
+
+- **Ansible Installation**: `aws-setup/utils/install-ansible.sh` installs Ansible for configuration management.
+- **AWS CLI V2 Installation**: `aws-setup/utils/install-aws-cli-v2.sh` installs AWS CLI V2 for interacting with AWS services.
+- **Terraform Installation**: `aws-setup/utils/install-terraform.sh` installs Terraform for infrastructure provisioning.
+
+### Infrastructure Provisioning
+
+- **Terraform Configuration**: `aws-setup/main.tf` defines the AWS infrastructure, including VPC, subnets, security groups, and EC2 instances.
+
+### Configuration Management
+
+- **Ansible Playbook**: `aws-setup/ansible/site.yml` configures the EC2 instances, setting up Git SSH, NVM, Node.js, and cloning the Git repository.
 
 ## How to Run the Application
 
