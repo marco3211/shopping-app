@@ -38,8 +38,8 @@ export default defineConfig({
       ],
     },
     hmr: {
-      host: env.DROPLET_IP, 
-      port: parseInt(env.PORT) || 3000, 
+      host: env.AWS_IP, 
+      port: 3001, 
     },
   },
 })
