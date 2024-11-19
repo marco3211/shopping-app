@@ -7,11 +7,6 @@
   become: yes
   become_user: root
 
-- name: Install Docker via amazon-linux-extras
-  command: amazon-linux-extras install -y docker
-  become: yes
-  become_user: root
-
 - name: Install Docker
   yum:
     name: docker

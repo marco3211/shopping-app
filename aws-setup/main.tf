@@ -63,6 +63,20 @@ resource "aws_security_group" "shopping_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]  
   }
 
+  ingress {
+    from_port   = 3001
+    to_port     = 3001
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  
+  }
+
+  ingress {
+    from_port   = 5173
+    to_port     = 5173
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -91,8 +105,8 @@ resource "local_file" "private_key" {
 }
 
 resource "aws_instance" "base_instance" {
-  ami           = "ami-0c9f8ca4e7018fa92"  
-  instance_type = "t4g.2xlarge"
+  ami           = "ami-012967cc5a8c9f891"  
+  instance_type = "t3a.2xlarge"
   key_name      = aws_key_pair.generated_key.key_name
   subnet_id     = aws_subnet.shopping_app_subnet.id
   vpc_security_group_ids = [aws_security_group.shopping_app_sg.id]
