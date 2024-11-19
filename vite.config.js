@@ -2,43 +2,22 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 
-const env = dotenv.config()
+dotenv.config()
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true, 
-    port: parseInt(env.PORT) || 3000, 
+    host: '0.0.0.0', 
+    port: parseInt(process.env.PORT) || 3000, 
     watch: {
-      usePolling: true, 
+      usePolling: true,
+      interval: 100,
       ignored: [
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/build/**',
-        '/var/run/udev/**',
-        '/run/udev/**',
-        '**/.git/**',
-        '**/.cache/**',
-        '**/tmp/**',
-        '**/.vscode/**',
-        '**/.idea/**',
-        '**/logs/**',
-        '**/*.log',
-        '**/.env',
-        '**/public/assets/**',
-        '**/out/**',
-        '**/coverage/**',
-        '**/docs/**',
-        '**/*~',
-        '**/#*#',
-        '**/.local/**',
-        '**/data/**',
-        '**/archives/**'
+        '**',
+        '!/home/ec2-user/project/**'
       ],
     },
     hmr: {
-      host: env.AWS_IP, 
       port: 3001, 
     },
   },
