@@ -1,4 +1,4 @@
-import { SET_LISTS, ADD_LIST, REORDER_LISTS, DELETE_LIST } from './actions'
+import { SET_LISTS, ADD_LIST, REORDER_LISTS, DELETE_LIST, UPDATE_LIST } from './actions'
 
 const initialState = {
   lists: [],
@@ -21,10 +21,17 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         lists: action.payload,
       }
-    case DELETE_LIST:
+      case DELETE_LIST:
+        return {
+          ...state,
+          lists: state.lists.filter((list) => list.name !== action.payload),
+        }
+    case UPDATE_LIST:
       return {
         ...state,
-        lists: state.lists.filter((_, index) => index !== action.payload),
+        lists: state.lists.map(list =>
+          list.name === action.payload.name ? action.payload : list
+        ),
       }
     default:
       return state

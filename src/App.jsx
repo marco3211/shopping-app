@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import ListsPage from './pages/ListsPage'
 import CreateListPage from './pages/CreateListPage'
 import CreateAccountPage from './pages/CreateAccountPage'
+import FullListPage from './pages/FullListPage' 
+import EditListPage from './pages/EditListPage'
 import { loadLists } from './redux/actions'
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route path="/lists" element={<ListsPage />} />
           <Route path="/create-list" element={<CreateListPage />} />
           <Route path="/create-account" element={<CreateAccountPage />} />
+          <Route path="/list/:listName" element={<FullListPage />} /> 
+          <Route path="/edit/:listName" element={<EditListPage />} /> 
         </Routes>
       </div>
     </Router>

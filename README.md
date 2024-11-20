@@ -1,26 +1,27 @@
-# Application Overview 
+# Application Overview
 
-This React application is built using Vite, a tool which provides fast development and hot module replacement (HMR) capabilities. The app is designed to manage shopping lists with features like drag-and-drop reordering and persistent state management using Redux.
+This React application is built using Vite, a tool that provides fast development and hot module replacement (HMR) capabilities. The app is designed to manage shopping lists with features like drag-and-drop reordering and persistent state management using Redux. Users can create, edit, and delete lists, with changes reflected instantly across the application.
 
 The application's infrastructure is managed using Terraform and Ansible, allowing for automated provisioning and configuration of AWS resources. This setup ensures a scalable and reliable environment for deploying and running the application.
 
 ## Key Technologies and Configurations
 
-- **Vite**: A build tool with HMR which allows developers to see changes in real-time without the need to refresh the entire page.
-- **React**: The core library allowing us to build UI Components.
-- **Redux Toolkit**: Utilized for state management. Simplifies the setup and management of global state in the application, ensuring consistent state across different pages.
-- **React Router**: Enables client-side routing. Provides a similar experience to a single-page application (SPA).
+- **Vite**: A build tool with HMR that allows developers to see changes in real-time without the need to refresh the entire page.
+- **React**: The core library for building UI components.
+- **Redux Toolkit**: Utilized for state management. Simplifies the setup and management of global state in the application, ensuring consistent state across different pages and components.
+- **React Router**: Enables client-side routing, providing a seamless single-page application (SPA) experience.
 - **TailwindCSS**: A utility-first CSS framework, configured with PostCSS to enable custom configurations and optimizations.
 - **Flowbite**: A component library built on top of TailwindCSS, providing pre-designed UI components.
+- **IndexedDB**: Used for persistent storage of lists, ensuring data is saved locally and can be retrieved even after a page refresh.
 - **PostCSS**: A tool that helps transform CSS with JavaScript plugins.
 - **ESLint**: Helps enforce standards and best practices.
 
 ## Design and Implementation Decisions
 
 - **Component-Based Architecture**: The application promotes reusability of components and separation of concerns. Each component has a specific functionality, making the code easier to understand and maintain.
-- **State Management**: Redux Toolkit was chosen for its simplicity in managing global state. The application ensures that the state is consistent across different pages, especially after reordering lists.
 - **Performance Optimization**: Vite's fast build process and HMR capabilities significantly reduce development time and improve developer experience.
 - **User Experience**: The application provides a simple UI for managing shopping lists. Features like drag-and-drop reordering, real-time validation, and error handling enhance the user experience by providing immediate guidance and feedback.
+- **Instant Updates**: Changes to lists, such as updates or deletions, are reflected instantly across the application without the need for a page refresh.
 - **UI Components**: Flowbite is used to provide pre-designed UI components, enhancing the design and functionality of the application.
 
 ## Application Structure
@@ -30,17 +31,21 @@ The application is structured into several components, pages, and state manageme
 - **Components**: Reusable UI elements that can be used across different pages. These are located in the `src/components` directory.
   - `CreateListCard.jsx`: Component for creating a new list.
   - `Header.jsx`: Component for the application header.
-  - `ListCard.jsx`: Component for displaying individual list items.
+  - `ListCard.jsx`: Component for displaying individual list items, with functionality for editing and deleting lists.
 
 - **Pages**: Main views or screens of the application, often representing a route. These are located in the `src/pages` directory.
   - `CreateAccountPage.jsx`: Page for creating a new account.
   - `CreateListPage.jsx`: Page for creating a new list.
+  - `EditListPage.jsx`: Page for editing an existing list.
+  - `FullListPage.jsx`: Page for viewing all items in a list.
   - `Home.jsx`: Home page of the application, featuring drag-and-drop reordering of lists.
   - `ListsPage.jsx`: Page for displaying all lists, reflecting the current state from Redux.
 
 - **Redux**: State management for the application. The Redux-related files are located in the `src/redux` directory.
   - `store.js`: Configures the Redux store.
   - `slices/`: Contains Redux slices for different parts of the state.
+  - `actions.js`: Defines action types and creators for managing lists.
+  - `reducers.js`: Handles state changes based on dispatched actions.
 
 - **Utilities**: Helper functions and utilities used across the application. These are located in the `src/utils` directory.
   - `indexedDB.js`: Utility for handling IndexedDB operations, ensuring persistent storage of lists.

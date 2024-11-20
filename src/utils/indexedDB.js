@@ -56,12 +56,29 @@ export const updateListsInDB = async (lists) => {
     })
 
     return transaction.complete
-}
+} 
 
 export const deleteListFromDB = async (listName) => {
     const db = await openDB('shoppingAppDB')
     const transaction = db.transaction('lists', 'readwrite')
     const store = transaction.objectStore('lists')
     store.delete(listName)
+    return transaction.complete
+}
+
+export const updateListInDB = async (oldName, updatedList) => {
+    const db = await openDB('shoppingAppDB')
+    const transaction = db.transaction('lists', 'readwrite')
+    const store = transaction.objectStore('lists')
+
+    console.log(`old name => ${oldName}`)
+    console.log(`updated name => ${updatedList.name}`)
+
+    if (oldName !== updatedList.name) {
+        store.delete(oldName)
+    }
+
+    store.put(updatedList)
+
     return transaction.complete
 }
